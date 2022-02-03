@@ -1,3 +1,4 @@
+from helpers import basket_of_words
 import tensorflow
 import json
 import random
@@ -86,3 +87,32 @@ try:
 except:
     model.fit(training, output, n_epoch=1000, batch_size=8, show_metric=True)
     model.save('model.tflearn')
+
+
+def chat():
+    print('Start chatting with the bot. Type "quit" to exit')
+
+    while True:
+        i = input('You: ')
+        if i.lower() == 'quit':
+            break
+
+    # This gives probabality of each tag
+    results = model.predict([basket_of_words(i, words)])
+    # This gives the index of that tag with max probability
+    results_indexof_highest = numpy.argmax(results)
+
+    tag = labels[results_indexof_highest]
+
+    # Response
+    # Now we find the json with that specific tag,and find random response from that list
+
+    for each_tag in data['commands']:
+        if each_tag['tag'] == tag:
+            responses = each_tag['responses']
+            # This gives a list of responsed from the JSON
+
+    print(random.choice(responses))
+
+
+chat()

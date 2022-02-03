@@ -14,6 +14,6 @@ def basket_of_words(s, words):
     for set in set_of_words:
         for i, wrd in enumerate(words):
             if wrd == set:
-                basket[i].append(1)
+                basket[i] = 1
 
     return numpy.array(basket)
