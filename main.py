@@ -1,10 +1,10 @@
 from helpers import basket_of_words
-import tensorflow
+from model import model_maker
 import json
 import random
 import numpy
 import nltk
-import tflearn
+
 import pickle
 
 from nltk.stem.lancaster import LancasterStemmer
@@ -71,22 +71,7 @@ except:
     with open('data.pickle', 'wb') as f:
         pickle.dump((words, training, labels, output), f)
 
-
-tensorflow.reset_default_graph()
-
-net = tflearn.input_data(shape=[None, len(training[0])])
-net = tflearn.fully_connected(net, 8)
-net = tflearn.fully_connected(net, 8)
-net = tflearn.fully_connected(net, len(output[0]), activation='softmax')
-net = tflearn.regression(net)
-
-model = tflearn.DNN(net)
-
-try:
-    model.load('model.tflearn')
-except:
-    model.fit(training, output, n_epoch=1000, batch_size=8, show_metric=True)
-    model.save('model.tflearn')
+model_maker(training, output)
 
 
 def chat():
