@@ -1,10 +1,9 @@
 from helpers import basket_of_words
 from model import model_maker
 import json
-import random
 import numpy
 import nltk
-
+import random
 import pickle
 
 from nltk.stem.lancaster import LancasterStemmer
@@ -71,7 +70,7 @@ except:
     with open('data.pickle', 'wb') as f:
         pickle.dump((words, training, labels, output), f)
 
-model_maker(training, output)
+model = model_maker(training, output)
 
 
 def chat():
