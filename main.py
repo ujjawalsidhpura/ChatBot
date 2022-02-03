@@ -29,7 +29,8 @@ for command in data['commands']:
         labels.append(command['tag'])
 
 
-words = [stemmer.stem(w.lower()) for w in words]
+# Stem it, also filter out '?' from data model
+words = [stemmer.stem(w.lower()) for w in words if w != '?']
 # Remove duplicates from stemmed set, convert back to list and sort it
 words = sorted(list(set(words)))
 labels = sorted(labels)
@@ -57,3 +58,6 @@ for a, doc in enumerate(docs_a):
 
     training.append(basket)
     output.append(output_row)
+
+training = numpy.array(training)
+output = numpy.array(output)
